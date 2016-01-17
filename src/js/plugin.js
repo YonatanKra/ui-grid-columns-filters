@@ -43,23 +43,16 @@
       return dst;
     };
   }
-  /**
-   *  @ngdoc overview
-   *  @name ui.grid.columnsFilters
-   *
-   *  @description
-   *
-   *  #ui.grid.columnsFilters
-   *
-   *  <div class="alert alert-warning" role="alert"><strong>Beta</strong> This feature is ready for testing, but it either hasn't seen a lot of use or has some known bugs.</div>
-   *
-   *  This module provides column filter in popup from the filter header cells.
-   */
 
   /**
    * @ngdoc module
    * @name ui.grid.columnsFilters
-   * @description Main plugin module
+   * @description
+   * #ui.grid.columnsFilters
+   *
+   * <div class="alert alert-warning" role="alert"><strong>Beta</strong> This feature is ready for testing, but it either hasn't seen a lot of use or has some known bugs.</div>
+   *
+   * This module provides column filter in popup from the filter header cells.
    */
   var module = angular.module('ui.grid.columnsFilters', ['ui.grid']);
 
@@ -180,7 +173,7 @@
    *  @name ui.grid.columnsFilters.api:ColumnDef
    *
    *  @description ColumnDef for column filter feature, these are available to be
-   *  set using the ui-grid {@link ui.grid.class:GridOptions.columnDef gridOptions.columnDefs}
+   *  set using the ui-grid columnDef
    *
    * @property {object} columnFilter - Specific column columnsFilters definitions
    * @property {string} columnFilter.type  - can be: 'date', 'select', 'string', 'number'
@@ -245,7 +238,6 @@
           //add feature namespace and any properties to grid for needed
           /**
            *  @ngdoc object
-           *  @name columnsFilters
            *  @name ui.grid.columnsFilters.api:Grid
            *
            *  @description Grid properties and functions added for columnsFilters
@@ -279,14 +271,16 @@
         },
         /**
          * @ngdoc method
-         * @methodOf ui.grid.columnsFilters.service:uiGridColumnsFiltersService
-         * @name filterPopupStyle
+         * @name ui.grid.columnsFilters.service:uiGridColumnsFiltersService#filterPopupStyle
          * @description Calculates the column filter's popup absolute position
          * @param {event} $event the event from the click event
-         * @returns {object} and object with top and left styling expressions
+         * @returns {object} an object with top and left styling expressions
          */
-        filterPopupStyle: function ($event) {
+        filterPopupStyle: function ($event, grid) {
           var rect = $event.target.parentElement.getClientRects()[0];
+          setTimeout(function(){
+            console.log(grid.element);
+          }, 250);
           return {
             top: document.body.scrollTop + (rect.height + rect.top) + 'px',
             left: rect.left + 'px'
@@ -294,8 +288,7 @@
         },
         /**
          * @ngdoc method
-         * @methodOf ui.grid.columnsFilters.service:uiGridColumnsFiltersService
-         * @name filter
+         * @name ui.grid.columnsFilters.service:uiGridColumnsFiltersService#filter
          * @description Sets the filter parameters of the column
          * @param {column} col - the column that is now being filtered
          */
@@ -317,8 +310,7 @@
         },
         /**
          * @ngdoc method
-         * @methodOf ui.grid.columnsFilters.service:uiGridColumnsFiltersService
-         * @name clear
+         * @name ui.grid.columnsFilters.service:uiGridColumnsFiltersService#clear
          * @description Clears the filter parameters of the column
          * @param {column} col -  the column that is now being filtered
          */
@@ -493,7 +485,7 @@
 
             // open a popup
             currentColumn.grid.columnsFilters.currentColumn = currentColumn; // set the current opened columnFilter
-            $scope.filterPopupStyle = uiGridColumnsFiltersService.filterPopupStyle(event); //set the style in the scope
+            $scope.filterPopupStyle = uiGridColumnsFiltersService.filterPopupStyle(event, currentColumn.grid); //set the style in the scope
             var popupElement = $compile(popupTemplate)($scope); // compile it
             angular.element(document.body).append(popupElement); // append to body
 
