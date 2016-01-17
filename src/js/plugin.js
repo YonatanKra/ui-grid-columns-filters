@@ -262,7 +262,7 @@
               else {
                 colDef.columnFilter = angular.merge({}, columnFilter, colDef.columnFilter);
               }
-              colDef.filterHeaderTemplate = $templateCache.get('ui-grid/filterButton');
+              colDef.filterHeaderTemplate = $templateCache.get('ui.grid.columns.filtersfilterButton.html');
             }
             else {
               colDef.filterHeaderTemplate = '<span ng-if="::false"></span>';
@@ -402,9 +402,9 @@
           }
 
           // get the filter popup template
-          var thisFilterTemplate = 'ui-grid/filters/%%^^ColumnFilter'.replace('%%^^', filterType); // get the filter type template name
+          var thisFilterTemplate = 'ui.grid.columns.filtersfilters/%%^^ColumnFilter'.replace('%%^^', filterType); // get the filter type template name
           var formElementsTemplate = $templateCache.get(thisFilterTemplate);
-          var popupTemplate = $templateCache.get('ui-grid/filterPopup').replace('<!-- content -->', formElementsTemplate); // get the full popup template
+          var popupTemplate = $templateCache.get('ui.grid.columns.filtersfilterPopup.html').replace('<!-- content -->', formElementsTemplate); // get the full popup template
 
           // get the selection options if needed
           if (filterType === 'select') {
